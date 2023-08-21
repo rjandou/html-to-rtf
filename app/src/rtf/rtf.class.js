@@ -14,14 +14,14 @@ class Rtf {
     this.rtfClosing = "}";
     this.rtfContentReferences = [];
     this.Table = new Table();
-    this.encodeText = true;
+    this.escapeText = true;
   }
 
-  convertHtmlToRtf(html, encodeText = true) {
+  convertHtmlToRtf(html, escapeText = true) {
     let htmlWithoutStrangerTags, $, treeOfTags;
 
-    if(encodeText == false)
-      this.encodeText = false;
+    if(escapeText == false)
+      this.escapeText = false;
 
     html = html.replace(/&nbsp;/gi, '<html-space>');
     htmlWithoutStrangerTags = this.swapHtmlStrangerTags(html, 'p');
@@ -131,7 +131,7 @@ class Rtf {
 
   addContentOfTagInRtfCode(contentOfTag) {
     contentOfTag = MyString.removeCharacterOfEscapeInAllString(contentOfTag, '\n\t');
-    contentOfTag = Character.asciiToRtfScape(contentOfTag, this.encodeText);
+    contentOfTag = Character.asciiToRtfScape(contentOfTag, this.escapeText);
 
     if(contentOfTag != undefined && !MyString.hasOnlyWhiteSpace(contentOfTag))
       this.rtfContentReferences.push({ content: contentOfTag, tag: false });
