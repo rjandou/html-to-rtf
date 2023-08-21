@@ -1,13 +1,13 @@
 class Character {
 
-    static asciiToRtfScape(text) {
+    static asciiToRtfScape(text, escapeText) {
         if (!text) {
             return text;
         }
 
         this.getTableData().forEach(item => {
             const regex = new RegExp(item.character, 'g');
-            text = text.replace(regex, item.rtf_escape);
+            text = text.replace(regex, escapeText ? item.rtf_escape : item.character);
         });
 
         return text;
