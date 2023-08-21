@@ -14,10 +14,14 @@ class Rtf {
     this.rtfClosing = "}";
     this.rtfContentReferences = [];
     this.Table = new Table();
+    this.encodeText = true;
   }
 
-  convertHtmlToRtf(html) {
+  convertHtmlToRtf(html, encodeText = true) {
     let htmlWithoutStrangerTags, $, treeOfTags;
+
+    if(encodeText == false)
+      this.encodeText = false;
 
     html = html.replace(/&nbsp;/gi, '<html-space>');
     htmlWithoutStrangerTags = this.swapHtmlStrangerTags(html, 'p');
